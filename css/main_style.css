@@ -1,0 +1,108 @@
+/* Todo List
+用bootstrap更新所有图标等的美术效果*/
+
+.param_item {
+    float:left;
+    margin: 5px;
+}
+
+
+.cell .img {
+    position: absolute;
+    height: 104px;
+    width: 120px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 76px 76px;
+}
+
+
+.cell_row {
+    clear: left;  /*左侧不允许出现其他浮动物体（保证左边对齐）*/
+}
+
+.cell_env {
+    clear: left;
+    height: 400px;
+    width: 500px;
+    overflow: hidden; /*当超出页面时隐藏(hidden)、滚动轴(scroll)*/
+}
+
+.cell.odd {
+    margin-top: 53px;
+}
+
+.cell {
+    float: left;
+    margin-right: -26px;
+    margin-bottom: -50px;
+}
+.cell .left {
+    float: left;
+    width: 0;
+    border-right: 30px solid;
+    border-right-color: #D2B48C;  /**/
+    border-top: 52px solid transparent;
+    border-bottom: 52px solid transparent;
+    /*background-image: url(http://placekitten.com/200/305);*/
+}
+.cell .middle {
+    float: left;
+    width: 62px;
+    height: 104px;
+    background-color: #D2B48C;  /**/
+    position: relative;
+    left: -1px;
+}
+.cell .right {
+    float: left;
+    width: 0;
+    border-left: 30px solid;
+    border-left-color: #D2B48C; /**/
+    border-top: 52px solid transparent;
+    border-bottom: 52px solid transparent;
+    position: relative;
+    left: -2px;
+}
+
+
+/*
+cell type picker
+
+
+.picker {
+    height: 200px;
+    width: 1000px;
+}
+*/
+.picker {
+    clear: both;
+}
+.picker .type_cover {
+    float: left;
+    height: 84px;
+    width: 84px;
+    margin: 5px;
+}
+
+.picker .type_cover_selected {
+    background-color: #CCCCCC;
+}
+
+.picker .type {
+    height: 72px;
+    width: 72px;
+    position: relative;
+    left: 6px;
+    top: 6px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 72px 72px;
+}
+
+
+/*
+#c_1_1 {
+    visibility: hidden;
+}
+*/

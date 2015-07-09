@@ -1,0 +1,30 @@
+{
+    "cell_type_picker" : [
+        { 
+            "cell_type" : "fn", 
+            "image_path" : "img/fn.png"
+        },
+
+        { 
+            "cell_type" : "wn", 
+            "image_path" : "img/wn.png"
+        },
+
+        { 
+            "cell_type" : "pn", 
+            "image_path" : "img/pn.png"
+        },
+
+        { 
+            "cell_type" : "sn", 
+            "image_path" : "img/sn.png"
+        },
+
+        { 
+            "cell_type" : "n", 
+            "image_path" : "img/n.png",
+            "image_in_cell" : "none"
+        }
+
+    ]
+}

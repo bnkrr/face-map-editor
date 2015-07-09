@@ -1,0 +1,27 @@
+.cell .fn .img {
+    background-image: url(../img/fn.png);
+}
+.picker  .type_fn {
+    background-image: url(../img/fn.png);
+}
+.cell .wn .img {
+    background-image: url(../img/wn.png);
+}
+.picker  .type_wn {
+    background-image: url(../img/wn.png);
+}
+.cell .pn .img {
+    background-image: url(../img/pn.png);
+}
+.picker  .type_pn {
+    background-image: url(../img/pn.png);
+}
+.cell .sn .img {
+    background-image: url(../img/sn.png);
+}
+.picker  .type_sn {
+    background-image: url(../img/sn.png);
+}
+.picker  .type_n {
+    background-image: url(../img/n.png);
+}
