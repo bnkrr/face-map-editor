@@ -283,6 +283,7 @@ function init() {
         //mat = matrixObjectInit(nrow,ncol);
         genMat(maxi, maxj);
     }
+    localStorage.clear();
 }
 
 
