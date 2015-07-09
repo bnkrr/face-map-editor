@@ -143,7 +143,43 @@ function matrixObjectInit(row, col) {
         this.updateById(id, abbr, displaylevel);
     }
 
-    mat.exportData = function (imin, imax, jmin, jmax) {
+    mat.genExportCell = function (i, j) {
+        var f = this.fore[i][j];
+        var d = this.data[i][j];
+        var b = this.back[i][j];
+
+        if (f == "n" && d == "n" && b == "n") {
+            return "n";
+        }
+        if (f != "n" && b != "n") {
+            return b+","+f;
+        }
+        var r = "";
+        if (b != "n") {
+            r += b + "|";
+        }
+        if (d != "n") {
+            r += d;
+        }
+        if (f != "n") {
+            r += "," + f;
+        }
+        return r
+    }
+
+    mat.genExportMat = function () {
+        mout = new Array(this.row);
+
+        for (var i = 0; i < this.row; i++) {
+            mout[i] = new Array(this.col);
+            for (var j = 0; j < mat.col; j++) {
+                mout[i][j] = this.genExportCell(i, j);
+            }
+        }
+        return mout;
+    }
+
+    mat.genStringFromMat = function (mout, imin, imax, jmin, jmax) {
         if (!imin) {imin = 0;}
         if (!imax) {imax = this.row;}
         if (!jmin) {jmin = 0;}  
@@ -152,7 +188,7 @@ function matrixObjectInit(row, col) {
         for (var i = imin; i < imax; i++) {
             var line = "{ ";
             for (var j = jmin; j < jmax; j++) {
-                var single = "\"" + this.data[i][j] + "\",";
+                var single = "\"" + mout[i][j] + "\",";
                 line += single;
             }
             line += " },\n";
@@ -161,52 +197,60 @@ function matrixObjectInit(row, col) {
         return result+"},\n}";
     }
 
-    mat.horizon = function (i) {
+    mat.genExportString = function () {
+        var mout = this.genExportMat();
+        return this.genStringFromMat(mout);
+    }
+
+    mat.horizon = function (mout, i) {
         for (var j = 0; j < this.col; ++j) {
-            if (this.data[i][j] != 'n') {
+            if (mout[i][j] != 'n') {
                 return false;
             }
         }
         return true;
     }
-    mat.vertical = function (j) {
+    mat.vertical = function (mout, j) {
         for (var i = 0; i < this.row; ++i) {
-            if (this.data[i][j] != 'n') {
+            if (mout[i][j] != 'n') {
                 return false;
             }
         }
         return true;
     }
 
-    mat.exportDataTight = function () {
+    mat.genExportStringTight = function () {
         var i=0, j=0;
         var imin=0, imax=this.row, jmin=0, jmax=this.col;
-        while (i<this.row && this.horizon(i)) {
+        var mout = this.genExportMat();
+
+        while (i<this.row && this.horizon(mout, i)) {
             ++i;
         }
         imin = i;
 
         i = this.row - 1;
-        while (i>=0 && this.horizon(i)) {
+        while (i>=0 && this.horizon(mout,i)) {
             i--;
         }
         imax = i+1;
 
-        while (j<this.col && this.vertical(j)) {
+        while (j<this.col && this.vertical(mout, j)) {
             ++j;
         }
         jmin = j;
 
         j = this.col - 1;
-        while (j>=0 && this.vertical(j)) {
+        while (j>=0 && this.vertical(mout, j)) {
             --j;
         }
         jmax = j+1;
         //alert(JSON.stringify([imin, imax, jmin, jmax]));
-        return this.exportData(imin, imax, jmin, jmax);
+        
+        return this.genStringFromMat(mout, imin, imax, jmin, jmax);
     }
 
-    mat.exportDataJson = function () {}
+    mat.genExportStringJson = function () {}
     
     mat.saveData = function () { // not functional, stringify needed
         localStorage.mat = this;
@@ -386,10 +430,10 @@ $("#btn_s").click(function() {
 // export
 $("#btn_export").click(function() {
     //$(".hex").each(exportEach)
-    $(".matrixtext").val(mat.exportData());
+    $(".matrixtext").val(mat.genExportString());
 });
 $("#btn_export_tight").click(function() {
-    $(".matrixtext").val(mat.exportDataTight());
+    $(".matrixtext").val(mat.genExportStringTight());
 });
 $("#btn_save").click(function() {
     var m = JSON.stringify(mat);
