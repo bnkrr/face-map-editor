@@ -1,10 +1,22 @@
-//cookie 保存
-//基于lua的菜单生成
+//可以移动所有的点
+//无限大的地图？
 
 // page initial
 function pageInitial() {
     $(".cell").click(OnClickCell);
     $(".type").click(OnClickType);
+}
+
+function ij2rc(i, j) {
+    var r = i + Math.floor((j+1)/2);
+    var c = j;
+    return [r, c];
+}
+
+function rc2ij(r, c) {
+    var i = r - Math.floor((c+1)/2);
+    var j = c;
+    return [i, j];
 }
 
 // matrix obj
@@ -27,7 +39,13 @@ function matrixObjectInit(row, col) {
             mat.data[i][j] = "n";
         }
     }
-        
+
+    mat.copy = function (m) {
+        this.row = m.row;
+        this.col = m.col;
+        this.data = m.data;
+    }
+
     mat.update = function (i, j, abbr) {
         var r = i + Math.floor((j+1)/2);
         var c = j;
@@ -114,6 +132,35 @@ function matrixObjectInit(row, col) {
 
     mat.exportDataJson = function () {}
     
+    mat.saveData = function () {
+        localStorage.mat = this;
+    }
+    mat.reset = function () {
+        for (var i = 0; i < this.row; ++i) {
+            for (var j = 0; j < this.col; ++j) {
+                //setattr
+                this.data[i][j] = 'n';
+            } 
+        }
+    }
+    mat.importData = function () {
+        // set row and line in input box
+        var maxi = this.row - Math.floor(this.col/2);
+        var maxj = this.col;
+        $("input.row").val(maxi);
+        $("input.col").val(maxj);
+        genMat(maxi, maxj);
+
+        for (var i = 0; i < maxi; ++i) {
+            for (var j = 0; j < maxj; ++j) {
+                //setattr
+                var rc = ij2rc(i, j);
+                updateClassCell($("#c_"+i+"_"+j), this.data[rc[0]][rc[1]]);
+            } 
+        }
+
+    }
+
     return mat;
 }
 
@@ -184,10 +231,11 @@ function OnClickCell() {
     updateClassCell($(this));
 }
 
-function updateClassCell(obj) {
-    var abbr = $(".type_selected").attr("abbr");
+function updateClassCell(obj, abbr) {
+    if (!abbr) {
+        var abbr = $(".type_selected").attr("abbr");
+    }
     var cellType = obj.children(".cell_type");
-    //alert(abbr);
     cellType.removeClass();
     cellType.addClass("cell_type");
     cellType.addClass(abbr);
@@ -205,25 +253,8 @@ function OnClickType() {
 
 
 
-// export
 
-
-
-
-// page initial
-init();
-
-
-$("#btn_export").click(function() {
-    //$(".hex").each(exportEach)
-    $(".matrixtext").val(mat.exportData());
-});
-$("#btn_export_tight").click(function() {
-    $(".matrixtext").val(mat.exportDataTight());
-});
-
-
-// misc, not well functional
+// misc
 
 function scaleObjectInit() {
     o = new Object();
@@ -247,12 +278,74 @@ function scaleObjectInit() {
 }
 
 scaleObj = scaleObjectInit();
+
+
+
+// local storage
+function saveData() {
+    localStorage.mat = JSON.stringify(mat);
+    //localStorage.abbr = $(this).attr("abbr");
+}
+
+function loadData() {
+    // genmat
+    var m = JSON.parse(localStorage.mat);
+    mat = matrixObjectInit(0,0);
+    mat.copy(m);
+    mat.importData();
+    // set abbr
+}
+
+
+// page initial
+if (localStorage.mat) {
+    loadData();
+} else {
+    init();
+}
+
+// top bar
+$("#btn_gen").click(init);
+$("#btn_clr").click(function() {
+    localStorage.clear();
+    mat.reset();
+    mat.importData();
+});
+
 $("#btn_l").click(function() {
     scaleObj.zoomOut();
-})
+});
 $("#btn_s").click(function() {
     scaleObj.zoomIn();
-})
+});
+
+
+// export
+$("#btn_export").click(function() {
+    //$(".hex").each(exportEach)
+    $(".matrixtext").val(mat.exportData());
+});
+$("#btn_export_tight").click(function() {
+    $(".matrixtext").val(mat.exportDataTight());
+});
+$("#btn_save").click(function() {
+    var m = JSON.stringify(mat);
+    $(".matrixtext").val("save://"+m);
+});
+
+$("#btn_load").click(function() {
+    var text = $(".matrixtext").val();
+    if (text.slice(0,7) == "save://") {
+        var m = JSON.parse(text.slice(7));
+        mat.copy(m);
+        mat.importData();
+    } else {
+        alert("format error");
+    }
+});
+
+$(window).unload(saveData);
+
 
 
 //循环所有元素,

@@ -12,7 +12,10 @@
 <div class="param">
     <div class="param_item row">Num of Row:  <input type=text class="row" value="2"></div>
     <div class="param_item col">Num of Col:  <input type=text class="col" value="4"></div>
-    <div class="param_item gen"><input type="button" value="Generate" onclick="init()"></div>
+    <div class="param_item gen">
+        <button id="btn_gen">Generate</button>
+        <button id="btn_clr">Clear</button>
+    </div>
     <div class="param_item scale">
         <button id="btn_s">Zoom In</button>
         <button id="btn_l">Zoom Out</button>
@@ -46,6 +49,8 @@
 <div class="menu">
     <button id="btn_export">Export</button>
     <button id="btn_export_tight">Tight Mode</button>
+    <button id="btn_save">Save</button>
+    <button id="btn_load">Load</button>
     <br>
     <textarea class="matrixtext" cols="40" rows="10"></textarea>
 </div>
