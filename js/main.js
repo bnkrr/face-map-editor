@@ -32,11 +32,17 @@ function matrixObjectInit(row, col) {
     mat.row = row;
     mat.col = col;
     mat.data = new Array(mat.row);
+    mat.fore = new Array(mat.row);
+    mat.back = new Array(mat.row);
 
     for (var i = 0; i < mat.row; i++) {
         mat.data[i] = new Array(mat.col);
+        mat.fore[i] = new Array(mat.col);
+        mat.back[i] = new Array(mat.col);
         for (var j = 0; j < mat.col; j++) {
             mat.data[i][j] = "n";
+            mat.fore[i][j] = "n";
+            mat.back[i][j] = "n";
         }
     }
 
@@ -44,27 +50,97 @@ function matrixObjectInit(row, col) {
         this.row = m.row;
         this.col = m.col;
         this.data = m.data;
+        this.fore = m.fore;
+        this.back = m.back;
     }
-
-    mat.update = function (i, j, abbr) {
+    mat.cellUpdate = function (i, j) {
         var r = i + Math.floor((j+1)/2);
         var c = j;
-        //alert(this.data);
-        this.data[r][c] = abbr;
+        //if (this.data[r][c] == )
+        var cellType = $("#c_"+i+"_"+j).children(".cell_type");
+        cellType.removeClass();
+        cellType.addClass("cell_type");
+        cellType.addClass(this.data[r][c]);
+
+        if (this.fore[r][c] != "n") {
+            cellType.attr("fore", this.fore[r][c]);
+        } else {
+            cellType.removeAttr("fore");
+        }
+
+        if (this.back[r][c] != "n") {
+            cellType.attr("back", this.back[r][c]);
+        } else {
+            cellType.removeAttr("back");
+        }
     }
 
-    mat.updateById = function(id, abbr) {
+    mat.cellUpdateById = function(id, abbr, displaylevel) {
         var ids = id.split("_");
         var i = parseInt(ids[1]);
         var j = parseInt(ids[2]);
-        this.update(i,j,abbr);
+        this.cellUpdate(i,j);
+    }
+
+    
+    mat.cellUpdateByObj = function (obj) {
+        var id = obj.attr("id");
+        this.cellUpdateById(id)
+    }
+
+    mat.cellUpdateAll = function () {
+        // set row and line in input box
+        var maxi = this.row - Math.floor(this.col/2);
+        var maxj = this.col;
+        $("input.row").val(maxi);
+        $("input.col").val(maxj);
+        genMat(maxi, maxj);
+
+        for (var i = 0; i < maxi; ++i) {
+            for (var j = 0; j < maxj; ++j) {
+                //setattr
+                this.cellUpdate(i, j);
+            } 
+        }
+
+    }
+
+    mat.update = function (i, j, abbr, displaylevel) {
+        var r = i + Math.floor((j+1)/2);
+        var c = j;
+        //alert(this.data);
+        if (abbr == "n") {
+            this.data[r][c] = "n";
+            this.fore[r][c] = "n";
+            this.back[r][c] = "n";
+        } else if (displaylevel == "fore" || displaylevel == "back") {
+            if (this[displaylevel][r][c] == abbr) {
+                this[displaylevel][r][c] = "n";
+            } else {
+                this[displaylevel][r][c] = abbr;
+            }
+        } else {
+            if (this.data[r][c] == abbr) {
+                this.data[r][c] = "n";
+            } else {
+                this.data[r][c] = abbr;
+            }
+        }
+    }
+
+    mat.updateById = function(id, abbr, displaylevel) {
+        var ids = id.split("_");
+        var i = parseInt(ids[1]);
+        var j = parseInt(ids[2]);
+        this.update(i,j,abbr,displaylevel);
     }
 
     
     mat.updateByObj = function (obj) {
         var abbr = $(".type_selected").attr("abbr");
+        var displaylevel = $(".type_selected").attr("displaylevel");
         var id = obj.attr("id");
-        this.updateById(id, abbr);
+        this.updateById(id, abbr, displaylevel);
     }
 
     mat.exportData = function (imin, imax, jmin, jmax) {
@@ -132,34 +208,20 @@ function matrixObjectInit(row, col) {
 
     mat.exportDataJson = function () {}
     
-    mat.saveData = function () {
+    mat.saveData = function () { // not functional, stringify needed
         localStorage.mat = this;
     }
     mat.reset = function () {
         for (var i = 0; i < this.row; ++i) {
             for (var j = 0; j < this.col; ++j) {
                 //setattr
-                this.data[i][j] = 'n';
+                this.data[i][j] = "n";
+                this.fore[i][j] = "n";
+                this.back[i][j] = "n";
             } 
         }
     }
-    mat.importData = function () {
-        // set row and line in input box
-        var maxi = this.row - Math.floor(this.col/2);
-        var maxj = this.col;
-        $("input.row").val(maxi);
-        $("input.col").val(maxj);
-        genMat(maxi, maxj);
 
-        for (var i = 0; i < maxi; ++i) {
-            for (var j = 0; j < maxj; ++j) {
-                //setattr
-                var rc = ij2rc(i, j);
-                updateClassCell($("#c_"+i+"_"+j), this.data[rc[0]][rc[1]]);
-            } 
-        }
-
-    }
 
     return mat;
 }
@@ -214,7 +276,10 @@ function htmlCell(i, j, odd) {
                 <span class="left"></span>\n\
                 <span class="middle"></span>\n\
                 <span class="right"></span>\n\
-                <div class="img"></div>\n\
+                <div class="img bg"></div>\n\
+                <div class="img back"></div>\n\
+                <div class="img bubble"></div>\n\
+                <div class="img fore"></div>\n\
             </div>\n\
         </div>\n';
     if (odd) {
@@ -228,25 +293,23 @@ function htmlCell(i, j, odd) {
 
 function OnClickCell() {
     mat.updateByObj($(this));
-    updateClassCell($(this));
+    mat.cellUpdateByObj($(this));
 }
 
-function updateClassCell(obj, abbr) {
-    if (!abbr) {
-        var abbr = $(".type_selected").attr("abbr");
-    }
-    var cellType = obj.children(".cell_type");
-    cellType.removeClass();
-    cellType.addClass("cell_type");
-    cellType.addClass(abbr);
-}
+
 
 
 // type picker
 
 function OnClickType() {
     var abbr = $(this).attr("abbr");
+    var displaylevel = $(this).attr("displaylevel");
     $(".type_selected").attr("abbr", abbr);
+    if (displaylevel) {
+        $(".type_selected").attr("displaylevel", displaylevel);
+    } else {
+        $(".type_selected").removeAttr("displaylevel");
+    }
     $(".type_cover").removeClass("type_cover_selected");
     $(this).parent().addClass("type_cover_selected");
 }
@@ -292,7 +355,7 @@ function loadData() {
     var m = JSON.parse(localStorage.mat);
     mat = matrixObjectInit(0,0);
     mat.copy(m);
-    mat.importData();
+    mat.cellUpdateAll();
     // set abbr
 }
 
@@ -309,7 +372,7 @@ $("#btn_gen").click(init);
 $("#btn_clr").click(function() {
     localStorage.clear();
     mat.reset();
-    mat.importData();
+    mat.cellUpdateAll();
 });
 
 $("#btn_l").click(function() {
@@ -338,7 +401,7 @@ $("#btn_load").click(function() {
     if (text.slice(0,7) == "save://") {
         var m = JSON.parse(text.slice(7));
         mat.copy(m);
-        mat.importData();
+        mat.cellUpdateAll();
     } else {
         alert("format error");
     }
@@ -347,7 +410,7 @@ $("#btn_load").click(function() {
 $(window).unload(saveData);
 
 
-//循环所有元素,
+
 //画布大小问题--能否自动缩放或者便捷地缩放
-//cookie与本地保存机制
-//通过JSON自动生成菜单--动态生成时用$().css()无法生成一直有效的格式效果（比如当cell刷新时）
+//能否告别lua的菜单生成器？
+//高级export行为

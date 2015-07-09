@@ -13,9 +13,29 @@
     width: 120px;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+
+
+.cell .bg {
+    background-image: url("../img/base.png");
+    background-size: 120px 104px;
+}
+
+
+.cell .back {
+    /*background-image: url("../img/d.png");*/
+    background-size: 120px 120px;
+}
+
+.cell .bubble {
     background-size: 76px 76px;
 }
 
+.cell .fore {
+    /*background-image: url("../img/i.png");*/
+    background-size: 118px 106px;
+}
 
 .cell_row {
     clear: left;  /*左侧不允许出现其他浮动物体（保证左边对齐）*/
@@ -37,6 +57,11 @@
     margin-right: -26px;
     margin-bottom: -50px;
 }
+
+.cell .left, .cell .middle, .cell .right {
+    visibility: hidden;
+}
+
 .cell .left {
     float: left;
     width: 0;

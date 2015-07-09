@@ -24,7 +24,18 @@
             "cell_type" : "n", 
             "image_path" : "img/n.png",
             "image_in_cell" : "none"
-        }
+        }, 
 
+        { 
+            "cell_type" : "i", 
+            "image_path" : "img/i.png",
+            "image_in_cell" : "foreground"
+        }, 
+
+        { 
+            "cell_type" : "d", 
+            "image_path" : "img/d.png",
+            "image_in_cell" : "background"
+        }
     ]
 }

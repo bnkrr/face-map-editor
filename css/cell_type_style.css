@@ -1,27 +1,39 @@
-.cell .fn .img {
-    background-image: url(../img/fn.png);
-}
 .picker  .type_fn {
     background-image: url(../img/fn.png);
 }
-.cell .wn .img {
-    background-image: url(../img/wn.png);
+.cell .fn .bubble {
+    background-image: url(../img/fn.png);
 }
 .picker  .type_wn {
     background-image: url(../img/wn.png);
 }
-.cell .pn .img {
-    background-image: url(../img/pn.png);
+.cell .wn .bubble {
+    background-image: url(../img/wn.png);
 }
 .picker  .type_pn {
     background-image: url(../img/pn.png);
 }
-.cell .sn .img {
-    background-image: url(../img/sn.png);
+.cell .pn .bubble {
+    background-image: url(../img/pn.png);
 }
 .picker  .type_sn {
     background-image: url(../img/sn.png);
 }
+.cell .sn .bubble {
+    background-image: url(../img/sn.png);
+}
 .picker  .type_n {
     background-image: url(../img/n.png);
+}
+.picker  .type_i {
+    background-image: url(../img/i.png);
+}
+.cell [fore=i] .fore {
+    background-image: url(../img/i.png);
+}
+.picker  .type_d {
+    background-image: url(../img/d.png);
+}
+.cell [back=d] .back {
+    background-image: url(../img/d.png);
 }

@@ -70,3 +70,33 @@ function genTypeCss(item) {
 //    background-image: url(img/fn.png);
 //}
 }
+
+
+function updateClassCell(obj, abbr, displaylevel) {
+    if (!abbr) {
+        var abbr = $(".type_selected").attr("abbr");
+    }
+    if (!displaylevel) {
+        var displaylevel = $(".type_selected").attr("displaylevel");
+    }
+    var cellType = obj.children(".cell_type");
+    if (abbr == "n") {
+        cellType.removeClass();
+        cellType.addClass("cell_type");
+        cellType.removeAttr("fore");
+        cellType.removeAttr("back");
+    } else if (displaylevel) {
+        if (abbr==cellType.attr(displaylevel)) { // if already has this block, remove it.
+            cellType.removeAttr(displaylevel);
+        } else {
+            cellType.attr(displaylevel, abbr);
+        }
+    } else {
+        if (cellType.hasClass(abbr)) {
+            abbr = "n";
+        }
+        cellType.removeClass();
+        cellType.addClass("cell_type");
+        cellType.addClass(abbr);
+    }
+}

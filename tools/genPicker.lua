@@ -16,23 +16,38 @@ ClassPickerGen = {
 }
 
 -- css pattern
-ClassPickerGen.cssPat1 = [[
-.cell .%s .img {
-    background-image: url(../%s);
-}
-]]
-
-ClassPickerGen.cssPat2 = [[
+ClassPickerGen.cssPat0 = [[
 .picker  .type_%s {
     background-image: url(../%s);
 }
 ]]
 
-ClassPickerGen.htmlPat = [[
+ClassPickerGen.cssPat1 = [[
+.cell .%s .bubble {
+    background-image: url(../%s);
+}
+]]
+
+ClassPickerGen.cssPat2 = [[
+.cell [%s=%s] .%s {
+    background-image: url(../%s);
+}
+]]
+
+
+
+ClassPickerGen.htmlPat1 = [[
     <div class="type_cover %s">
         <div class="type type_%s" abbr="%s"></div>
     </div>
 ]]
+
+ClassPickerGen.htmlPat2 = [[
+    <div class="type_cover %s">
+        <div class="type type_%s" abbr="%s" displaylevel="%s"></div>
+    </div>
+]]
+
 
 function ClassPickerGen:new(o)
 	o = o or {}
@@ -57,13 +72,19 @@ function ClassPickerGen:genCss()
 	local fout = assert(io.open(self.map_editor_path .. self.css_path, "w"))
 	for i, v in ipairs(self.jsonContent["cell_type_picker"]) do
 		if v["image_in_cell"] == "none" then 		-- only display in picker
-			tmp = string.format(self.cssPat2, v["cell_type"], v["image_path"])
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			fout:write(tmp)
+		elseif v["image_in_cell"] == "background" or v["image_in_cell"] == "foreground" then
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			fout:write(tmp)
+			tmp = string.format(self.cssPat2, string.sub(v["image_in_cell"],0,4), v["cell_type"], string.sub(v["image_in_cell"],0,4), v["image_path"])
 			fout:write(tmp)
 		else
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			fout:write(tmp)
 			tmp = string.format(self.cssPat1, v["cell_type"], v["image_path"])
 			fout:write(tmp)
-			tmp = string.format(self.cssPat2, v["cell_type"], v["image_path"])
-			fout:write(tmp)
+
 		end
 	end
 	fout:close()
@@ -78,7 +99,11 @@ function ClassPickerGen:genHtml()
 	fin:close()
 
 	for i, v in ipairs(self.jsonContent["cell_type_picker"]) do
-		tmp = string.format(self.htmlPat, "", v["cell_type"], v["cell_type"])
+		if v["image_in_cell"] == "background" or v["image_in_cell"] == "foreground" then
+			tmp = string.format(self.htmlPat2, "", v["cell_type"], v["cell_type"], string.sub(v["image_in_cell"],0,4))
+		else
+			tmp = string.format(self.htmlPat1, "", v["cell_type"], v["cell_type"])
+		end
 		pickerHtml = pickerHtml .. tmp
 	end
 
