@@ -347,7 +347,6 @@ $("#btn_load").click(function() {
 $(window).unload(saveData);
 
 
-
 //循环所有元素,
 //画布大小问题--能否自动缩放或者便捷地缩放
 //cookie与本地保存机制
