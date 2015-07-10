@@ -1,3 +1,10 @@
+$("#btn_clr").click(function() {
+    localStorage.clear();
+    mat.reset();
+    mat.cellUpdateAll();
+});
+
+
 //可以移动所有的点
 //无限大的地图？
 
@@ -151,9 +158,16 @@ function matrixObjectInit(row, col) {
         if (f == "n" && d == "n" && b == "n") {
             return "n";
         }
-        if (f != "n" && b != "n") {
-            return b+","+f;
+        if (d == "n") {
+            if (f != "n") {
+                return f;
+            } else if (b != "n") {
+                return b;
+            } else {    // f != "n" && b != "n"
+                return b+","+f;
+            }
         }
+
         var r = "";
         if (b != "n") {
             r += b + "|";
@@ -414,11 +428,6 @@ if (localStorage.mat) {
 
 // top bar
 $("#btn_gen").click(init);
-$("#btn_clr").click(function() {
-    localStorage.clear();
-    mat.reset();
-    mat.cellUpdateAll();
-});
 
 $("#btn_l").click(function() {
     scaleObj.zoomOut();
