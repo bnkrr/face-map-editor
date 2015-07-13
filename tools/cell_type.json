@@ -21,6 +21,11 @@
         },
 
         { 
+            "cell_type" : "E", 
+            "image_path" : "img/E.png"
+        },
+        
+        { 
             "cell_type" : "n", 
             "image_path" : "img/n.png",
             "image_in_cell" : "none"

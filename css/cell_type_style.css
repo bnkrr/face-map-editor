@@ -22,6 +22,12 @@
 .cell .sn .bubble {
     background-image: url(../img/sn.png);
 }
+.picker  .type_E {
+    background-image: url(../img/E.png);
+}
+.cell .E .bubble {
+    background-image: url(../img/E.png);
+}
 .picker  .type_n {
     background-image: url(../img/n.png);
 }

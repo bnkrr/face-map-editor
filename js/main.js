@@ -60,6 +60,7 @@ function matrixObjectInit(row, col) {
         this.fore = m.fore;
         this.back = m.back;
     }
+
     mat.cellUpdate = function (i, j) {
         var r = i + Math.floor((j+1)/2);
         var c = j;
@@ -109,7 +110,6 @@ function matrixObjectInit(row, col) {
                 this.cellUpdate(i, j);
             } 
         }
-
     }
 
     mat.update = function (i, j, abbr, displaylevel) {
@@ -150,40 +150,69 @@ function matrixObjectInit(row, col) {
         this.updateById(id, abbr, displaylevel);
     }
 
-    mat.genExportCell = function (i, j) {
-        var f = this.fore[i][j];
-        var d = this.data[i][j];
-        var b = this.back[i][j];
-
-        if (f == "n" && d == "n" && b == "n") {
-            return "n";
+    mat.preExportCell = function (r, c) {
+        var f = this.fore[r][c];
+        var d = this.data[r][c];
+        var b = this.back[r][c];
+        if (d == "n" && (f != "n" || b != "n")) {
+            this.data[r][c] = "E";
         }
-        if (d == "n") {
-            if (f != "n") {
-                return f;
-            } else if (b != "n") {
-                return b;
-            } else {    // f != "n" && b != "n"
-                return b+","+f;
+
+        if (d != "E" && (f != "n" && b != "n")) {
+            this.data[r][c] = "E";
+        }
+
+    }
+    mat.preExport = function () { // fill E in blank cell before export
+        for (var r = 0; r < this.row; ++r) {
+            for (var c = 0; c < this.col; ++c) {
+                var ij = rc2ij(r, c)
+                this.preExportCell(r, c);
+                this.cellUpdate(ij[0], ij[1]);
+            } 
+        }
+    } 
+    
+    mat.genExportCell = function (r, c) {
+        var f = this.fore[r][c];
+        var d = this.data[r][c];
+        var b = this.back[r][c];
+
+        if (d == "E") {
+            if (f == "n" && b == "n") {
+                return d;
+            } else {
+                d = "n"; // E for empty
             }
         }
-
-        var r = "";
-        if (b != "n") {
-            r += b + "|";
-        }
         if (d != "n") {
-            r += d;
+            if (f != "n" && b != "n") {
+                return b+","+f;
+            } else if (f != "n") {
+                return d + "," + f;
+            } else if (b != "n") {    // f == "n" && b != "n"
+                return b + "|" + d;
+            } else {
+                return d;
+            }
+        } else {
+            if (f != "n" && b != "n") {
+                return b+","+f;
+            } else if (f != "n") {
+                return f;
+            } else if (b != "n") {    // f == "n" && b != "n"
+                return b;
+            } else {
+                return d;
+            }
         }
-        if (f != "n") {
-            r += "," + f;
-        }
-        return r
+        return "n";
     }
 
     mat.genExportMat = function () {
-        mout = new Array(this.row);
+        this.preExport();
 
+        var mout = new Array(this.row);
         for (var i = 0; i < this.row; i++) {
             mout[i] = new Array(this.col);
             for (var j = 0; j < mat.col; j++) {
