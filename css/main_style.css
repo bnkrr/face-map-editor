@@ -107,7 +107,7 @@ cell type picker
 .picker {
     clear: both;
     height: 210px;
-    overflow: scroll;
+    overflow: auto;
 }
 .picker .type_cover {
     float: left;
@@ -130,6 +130,44 @@ cell type picker
     background-repeat: no-repeat;
     background-size: 72px 72px;
 }
+
+
+.drop .dr_item {
+    float: left;
+    margin: 5px;
+}
+
+.drop .txt_dr {
+    float: left;
+}
+
+.drop .img_dr {
+    float: left;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+}
+
+.drop .img_dr.wn {
+    background-image: url(../img/wn.png);
+}
+.drop .img_dr.pn {
+    background-image: url(../img/pn.png);
+}
+.drop .img_dr.fn {
+    background-image: url(../img/fn.png);
+}
+.drop .img_dr.sn {
+    background-image: url(../img/sn.png);
+}
+
+
+.menu {
+    clear: both;
+}
+
 /*
 #btn_gen {
     background-image: url(../img/s.png);
