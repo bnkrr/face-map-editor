@@ -114,6 +114,30 @@
 .cell .E .bubble {
     background-image: url(../img/E.png);
 }
+.picker  .type_E1 {
+    background-image: url(../img/E1.png);
+}
+.cell .E1 .bubble {
+    background-image: url(../img/E1.png);
+}
+.picker  .type_E2 {
+    background-image: url(../img/E2.png);
+}
+.cell .E2 .bubble {
+    background-image: url(../img/E2.png);
+}
+.picker  .type_E3 {
+    background-image: url(../img/E3.png);
+}
+.cell .E3 .bubble {
+    background-image: url(../img/E3.png);
+}
+.picker  .type_E4 {
+    background-image: url(../img/E4.png);
+}
+.cell .E4 .bubble {
+    background-image: url(../img/E4.png);
+}
 .picker  .type_EE {
     background-image: url(../img/base.png);
     background-size: 72px 64px;
