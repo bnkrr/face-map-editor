@@ -98,6 +98,26 @@
             "cell_type" : "E", 
             "image_path" : "img/E.png"
         },
+        
+        { 
+            "cell_type" : "E1", 
+            "image_path" : "img/E1.png"
+        },
+
+        { 
+            "cell_type" : "E2", 
+            "image_path" : "img/E2.png"
+        },
+
+        { 
+            "cell_type" : "E3", 
+            "image_path" : "img/E3.png"
+        },
+
+        { 
+            "cell_type" : "E4", 
+            "image_path" : "img/E4.png"
+        },
 
         { 
             "cell_type" : "EE", 
