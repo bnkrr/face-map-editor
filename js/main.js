@@ -438,7 +438,15 @@ function OnClickType() {
 }
 
 
+// drop rate
 
+function toggleDropRate() {
+    if ($("#ckb_dr").prop("checked")) {
+        $(".txt_dr").prop("readonly", false)
+    } else {
+        $(".txt_dr").prop("readonly", true)
+    }
+}
 
 // misc
 
@@ -524,6 +532,8 @@ $("#btn_load").click(function() {
         alert("format error");
     }
 });
+
+$("#ckb_dr").click(toggleDropRate);
 
 $(window).unload(saveData);
 
