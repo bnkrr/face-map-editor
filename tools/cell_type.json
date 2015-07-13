@@ -21,9 +21,90 @@
         },
 
         { 
+            "cell_type" : "s", 
+            "image_path" : "img/s.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "72px 64px"
+        },
+        
+        { 
+            "cell_type" : "t", 
+            "image_path" : "img/t.png"
+        },
+
+        { 
+            "cell_type" : "g", 
+            "image_path" : "img/g.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "96px 84px"
+        },
+
+        { 
+            "cell_type" : "r", 
+            "image_path" : "img/r.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "72px 64px"
+        },
+
+        { 
+            "cell_type" : "p", 
+            "image_path" : "img/p.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "72px 64px"
+        },
+        
+        { 
+            "cell_type" : "p_2", 
+            "image_path" : "img/p_2.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "72px 64px"
+        },
+
+        { 
+            "cell_type" : "p_3", 
+            "image_path" : "img/p_3.png",
+            "cell_size" : "110px 95px",
+            "picker_size" : "72px 64px"
+        },
+
+        { 
+            "cell_type" : "f", 
+            "image_path" : "img/f.png"
+        },
+        
+        { 
+            "cell_type" : "f_2", 
+            "image_path" : "img/f_2.png"
+        },
+
+        { 
+            "cell_type" : "f_1", 
+            "image_path" : "img/f_1.png"
+        },
+
+        { 
+            "cell_type" : "pball", 
+            "image_path" : "img/pball.png",
+            "cell_size" : "104px 104px"
+        },
+
+        { 
+            "cell_type" : "pbhole", 
+            "image_path" : "img/pbhole.png",
+            "cell_size" : "104px 104px"
+        },
+
+        { 
             "cell_type" : "E", 
             "image_path" : "img/E.png"
         },
+
+        { 
+            "cell_type" : "EE", 
+            "image_path" : "img/base.png",
+            "image_in_cell" : "none",
+            "picker_size" : "72px 64px"
+        }, 
         
         { 
             "cell_type" : "n", 
@@ -37,6 +118,11 @@
             "image_in_cell" : "foreground"
         }, 
 
+        {
+            "cell_type" : "ab", 
+            "image_path" : "img/ab.png",
+            "image_in_cell" : "foreground"
+        },
         { 
             "cell_type" : "d", 
             "image_path" : "img/d.png",

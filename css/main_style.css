@@ -22,6 +22,10 @@
     background-size: 120px 104px;
 }
 
+.cell .n .bg {
+    background-image: url("../img/base_n.png");
+    background-size: 120px 104px;
+}
 
 .cell .back {
     /*background-image: url("../img/d.png");*/
@@ -102,6 +106,8 @@ cell type picker
 */
 .picker {
     clear: both;
+    height: 210px;
+    overflow: scroll;
 }
 .picker .type_cover {
     float: left;
@@ -124,6 +130,20 @@ cell type picker
     background-repeat: no-repeat;
     background-size: 72px 72px;
 }
+/*
+#btn_gen {
+    background-image: url(../img/s.png);
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
+    background-color: transparent;
+}
+
+#btn_gen:focus  {
+    background-image: url(../img/sn.png);
+    background-repeat: no-repeat;
+}
+*/
 /*
 .picker .type_cover:hover {
     background-color: #EEEEEE;

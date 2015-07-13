@@ -18,19 +18,19 @@ ClassPickerGen = {
 -- css pattern
 ClassPickerGen.cssPat0 = [[
 .picker  .type_%s {
-    background-image: url(../%s);
+    background-image: url(../%s);%s
 }
 ]]
 
 ClassPickerGen.cssPat1 = [[
 .cell .%s .bubble {
-    background-image: url(../%s);
+    background-image: url(../%s);%s
 }
 ]]
 
 ClassPickerGen.cssPat2 = [[
 .cell [%s=%s] .%s {
-    background-image: url(../%s);
+    background-image: url(../%s);%s
 }
 ]]
 
@@ -69,20 +69,32 @@ end
 
 function ClassPickerGen:genCss()
 	local tmp
+	local psize
+	local csize
 	local fout = assert(io.open(self.map_editor_path .. self.css_path, "w"))
 	for i, v in ipairs(self.jsonContent["cell_type_picker"]) do
+		if v["picker_size"] ~= nil then
+			psize = string.format("\n    background-size: %s;", v["picker_size"])
+		else
+			psize = ""
+		end
+		if v["cell_size"] ~= nil then
+			csize = string.format("\n    background-size: %s;", v["cell_size"])
+		else
+			csize = ""
+		end
 		if v["image_in_cell"] == "none" then 		-- only display in picker
-			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"], psize)
 			fout:write(tmp)
 		elseif v["image_in_cell"] == "background" or v["image_in_cell"] == "foreground" then
-			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"], psize)
 			fout:write(tmp)
-			tmp = string.format(self.cssPat2, string.sub(v["image_in_cell"],0,4), v["cell_type"], string.sub(v["image_in_cell"],0,4), v["image_path"])
+			tmp = string.format(self.cssPat2, string.sub(v["image_in_cell"],0,4), v["cell_type"], string.sub(v["image_in_cell"],0,4), v["image_path"], cisze)
 			fout:write(tmp)
 		else
-			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"])
+			tmp = string.format(self.cssPat0, v["cell_type"], v["image_path"], psize)
 			fout:write(tmp)
-			tmp = string.format(self.cssPat1, v["cell_type"], v["image_path"])
+			tmp = string.format(self.cssPat1, v["cell_type"], v["image_path"], csize)
 			fout:write(tmp)
 
 		end

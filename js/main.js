@@ -121,14 +121,30 @@ function matrixObjectInit(row, col) {
             this.fore[r][c] = "n";
             this.back[r][c] = "n";
         } else if (displaylevel == "fore" || displaylevel == "back") {
+
             if (this[displaylevel][r][c] == abbr) {
                 this[displaylevel][r][c] = "n";
             } else {
                 this[displaylevel][r][c] = abbr;
             }
+            if (this.data[r][c] == "n") {
+                this.data[r][c] = "EE";
+            }
         } else {
             if (this.data[r][c] == abbr) {
-                this.data[r][c] = "n";
+                if (this.data[r][c] == "EE") {
+                    if (this.fore[r][c] != "n" || this.back[r][c] != "n") {
+                        //this.data[r][c] = "EE";
+                        this.fore[r][c] = "n";
+                        this.back[r][c] = "n";
+                    } else {
+                        this.data[r][c] = "n";
+                        this.fore[r][c] = "n";
+                        this.back[r][c] = "n";
+                    }
+                } else {
+                    this.data[r][c] = "EE";
+                }
             } else {
                 this.data[r][c] = abbr;
             }
@@ -150,35 +166,54 @@ function matrixObjectInit(row, col) {
         this.updateById(id, abbr, displaylevel);
     }
 
-    mat.preExportCell = function (r, c) {
+    mat.errorDetectionCell = function (r, c) {
         var f = this.fore[r][c];
         var d = this.data[r][c];
         var b = this.back[r][c];
-        if (d == "n" && (f != "n" || b != "n")) {
-            this.data[r][c] = "E";
+        if (f == "ab") { //airball
+            var colors = {"wn":"1", "pn":"2", "fn":"3", "sn":"4"};
+            if (colors[d] == undefined) {
+                this.data[r][c] = "E";
+            }
+            this.back[r][c] = "n";
         }
 
-        if (d != "E" && (f != "n" && b != "n")) {
-            this.data[r][c] = "E";
+        if ((d == "n" || d == "EE") && (f != "n" || b != "n")) { // any foreground or background
+            this.data[r][c] = "E";  
+        }
+
+        if (d != "E" && (f == "i" && b != "n")) { // d,i
+            this.data[r][c] = "E";  
         }
 
     }
-    mat.preExport = function () { // fill E in blank cell before export
+    mat.errorDetection = function () { // fill E in blank cell before export
         for (var r = 0; r < this.row; ++r) {
             for (var c = 0; c < this.col; ++c) {
-                var ij = rc2ij(r, c)
-                this.preExportCell(r, c);
+                var ij = rc2ij(r, c);
+                this.errorDetectionCell(r, c);
                 this.cellUpdate(ij[0], ij[1]);
             } 
         }
-    } 
+    }
+
+    mat.preExport = function () {
+        this.errorDetection();
+    }
     
     mat.genExportCell = function (r, c) {
         var f = this.fore[r][c];
         var d = this.data[r][c];
         var b = this.back[r][c];
-
-        if (d == "E") {
+        if (f == "ab") { //airball
+            var colors = {"wn":"1", "pn":"2", "fn":"3", "sn":"4"};
+            if (colors[d] == undefined) {
+                return "ab";
+            } else {
+                return "ab_1_" + colors[d];
+            }
+        }
+        if (d == "E") { // empty
             if (f == "n" && b == "n") {
                 return d;
             } else {
@@ -360,7 +395,7 @@ function htmlCell(i, j, odd) {
     var cellCode2 = '" id="c_';
     var cellCode3 = '_';
     var cellCode4 = '">\n\
-            <div class="cell_type">\n\
+            <div class="cell_type n">\n\
                 <span class="left"></span>\n\
                 <span class="middle"></span>\n\
                 <span class="right"></span>\n\

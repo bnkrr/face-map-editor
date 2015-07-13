@@ -22,11 +22,101 @@
 .cell .sn .bubble {
     background-image: url(../img/sn.png);
 }
+.picker  .type_s {
+    background-image: url(../img/s.png);
+    background-size: 72px 64px;
+}
+.cell .s .bubble {
+    background-image: url(../img/s.png);
+    background-size: 110px 95px;
+}
+.picker  .type_t {
+    background-image: url(../img/t.png);
+}
+.cell .t .bubble {
+    background-image: url(../img/t.png);
+}
+.picker  .type_g {
+    background-image: url(../img/g.png);
+    background-size: 96px 84px;
+}
+.cell .g .bubble {
+    background-image: url(../img/g.png);
+    background-size: 110px 95px;
+}
+.picker  .type_r {
+    background-image: url(../img/r.png);
+    background-size: 72px 64px;
+}
+.cell .r .bubble {
+    background-image: url(../img/r.png);
+    background-size: 110px 95px;
+}
+.picker  .type_p {
+    background-image: url(../img/p.png);
+    background-size: 72px 64px;
+}
+.cell .p .bubble {
+    background-image: url(../img/p.png);
+    background-size: 110px 95px;
+}
+.picker  .type_p_2 {
+    background-image: url(../img/p_2.png);
+    background-size: 72px 64px;
+}
+.cell .p_2 .bubble {
+    background-image: url(../img/p_2.png);
+    background-size: 110px 95px;
+}
+.picker  .type_p_3 {
+    background-image: url(../img/p_3.png);
+    background-size: 72px 64px;
+}
+.cell .p_3 .bubble {
+    background-image: url(../img/p_3.png);
+    background-size: 110px 95px;
+}
+.picker  .type_f {
+    background-image: url(../img/f.png);
+}
+.cell .f .bubble {
+    background-image: url(../img/f.png);
+}
+.picker  .type_f_2 {
+    background-image: url(../img/f_2.png);
+}
+.cell .f_2 .bubble {
+    background-image: url(../img/f_2.png);
+}
+.picker  .type_f_1 {
+    background-image: url(../img/f_1.png);
+}
+.cell .f_1 .bubble {
+    background-image: url(../img/f_1.png);
+}
+.picker  .type_pball {
+    background-image: url(../img/pball.png);
+}
+.cell .pball .bubble {
+    background-image: url(../img/pball.png);
+    background-size: 104px 104px;
+}
+.picker  .type_pbhole {
+    background-image: url(../img/pbhole.png);
+}
+.cell .pbhole .bubble {
+    background-image: url(../img/pbhole.png);
+    background-size: 104px 104px;
+}
 .picker  .type_E {
     background-image: url(../img/E.png);
 }
 .cell .E .bubble {
     background-image: url(../img/E.png);
+}
+.picker  .type_EE {
+    background-image: url(../img/base.png);
+    background-size: 72px 64px;
 }
 .picker  .type_n {
     background-image: url(../img/n.png);
@@ -35,11 +125,17 @@
     background-image: url(../img/i.png);
 }
 .cell [fore=i] .fore {
-    background-image: url(../img/i.png);
+    background-image: url(../img/i.png);nil
+}
+.picker  .type_ab {
+    background-image: url(../img/ab.png);
+}
+.cell [fore=ab] .fore {
+    background-image: url(../img/ab.png);nil
 }
 .picker  .type_d {
     background-image: url(../img/d.png);
 }
 .cell [back=d] .back {
-    background-image: url(../img/d.png);
+    background-image: url(../img/d.png);nil
 }
