@@ -1,11 +1,6 @@
 {
     "cell_type_picker" : [
         { 
-            "cell_type" : "fn", 
-            "image_path" : "img/fn.png"
-        },
-
-        { 
             "cell_type" : "wn", 
             "image_path" : "img/wn.png"
         },
@@ -16,8 +11,53 @@
         },
 
         { 
+            "cell_type" : "fn", 
+            "image_path" : "img/fn.png"
+        },
+
+        { 
             "cell_type" : "sn", 
             "image_path" : "img/sn.png"
+        },
+
+        { 
+            "cell_type" : "wb", 
+            "image_path" : "img/wb.png"
+        },
+
+        { 
+            "cell_type" : "wb2", 
+            "image_path" : "img/wb2.png"
+        },
+
+        { 
+            "cell_type" : "pb", 
+            "image_path" : "img/pb.png"
+        },
+
+        { 
+            "cell_type" : "pb2", 
+            "image_path" : "img/pb2.png"
+        },
+
+        { 
+            "cell_type" : "fb", 
+            "image_path" : "img/fb.png"
+        },
+
+        { 
+            "cell_type" : "fb2", 
+            "image_path" : "img/fb2.png"
+        },
+
+        { 
+            "cell_type" : "sb", 
+            "image_path" : "img/sb.png"
+        },
+
+        { 
+            "cell_type" : "sb2", 
+            "image_path" : "img/sb2.png"
         },
 
         { 
