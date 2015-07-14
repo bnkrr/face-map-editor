@@ -210,7 +210,9 @@ $("#btn_export_tight").click(function() {
 });
 
 $("#btn_import").click(function() {
-    mat.parseImportData();
+    if (confirm("Current work will lost. Continue anyway?")) {
+        mat.parseImportData();
+    }
 });
 
 
