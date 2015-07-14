@@ -78,6 +78,12 @@
     background-image: url(../img/s.png);
     background-size: 110px 95px;
 }
+.picker  .type_frd {
+    background-image: url(../img/frd.png);
+}
+.cell .frd .bubble {
+    background-image: url(../img/frd.png);
+}
 .picker  .type_t {
     background-image: url(../img/t.png);
 }
