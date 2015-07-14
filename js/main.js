@@ -139,6 +139,37 @@ function setDropRate(dr) {
     }
 }
 
+function getDropRateInfo() {
+    var wn = parseInt($(".txt_dr.wn").val());
+    var pn = parseInt($(".txt_dr.pn").val());
+    var fn = parseInt($(".txt_dr.fn").val());
+    var sn = parseInt($(".txt_dr.sn").val());
+    var dr = {}
+    if (wn != NaN) {
+        dr.BUBBLE_TYPE_WATER = wn;
+    }
+    if (pn != NaN) {
+        dr.BUBBLE_TYPE_PLANT = pn;
+    }
+    if (fn != NaN) {
+        dr.BUBBLE_TYPE_FIRE = fn;
+    }
+    if (sn != NaN) {
+        dr.BUBBLE_TYPE_STAR = sn;
+    }
+
+    var drInfo = {};
+    drInfo.chk = $("#ckb_dr").prop("checked");
+    drInfo.dr = dr;
+    return drInfo;
+}
+
+function setDropRateInfo(drInfo) {
+    $("#ckb_dr").prop("checked", drInfo.chk);
+    toggleDropRate();
+    setDropRate(drInfo.dr);
+}
+
 // misc
 
 function scaleObjectInit() {
@@ -169,6 +200,7 @@ scaleObj = scaleObjectInit();
 // local storage
 function saveData() {
     localStorage.mat = JSON.stringify(mat);
+    localStorage.drInfo = JSON.stringify(getDropRateInfo());
     //localStorage.abbr = $(this).attr("abbr");
 }
 
@@ -178,6 +210,7 @@ function loadData() {
     mat = matrixObjectInit(0,0);
     mat.copy(m);
     mat.cellUpdateAll();
+    setDropRateInfo(JSON.parse(localStorage.drInfo));
     // set abbr
 }
 
