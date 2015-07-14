@@ -164,6 +164,17 @@ cell type picker
 }
 
 
+.drop .txt_dr:read-only {
+    /*visibility: hidden;*/
+    color: #808080;
+    background-color: #C0C0C0;
+}
+.drop .txt_dr:-moz-read-only {
+    /*visibility: hidden;*/
+    color: #808080;
+    background-color: #C0C0C0;
+}
+
 .menu {
     clear: both;
 }
