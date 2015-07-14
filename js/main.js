@@ -124,6 +124,9 @@ function setDropRate(dr) {
         $("#ckb_dr").prop("checked", false);
         toggleDropRate();
     } else {
+        $("#ckb_dr").prop("checked", true);
+        toggleDropRate();
+
         if (dr.BUBBLE_TYPE_WATER != undefined) {
             $(".txt_dr.wn").val(dr.BUBBLE_TYPE_WATER.toString());
         }
